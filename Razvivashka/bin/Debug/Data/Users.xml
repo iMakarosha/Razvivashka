@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<users>
+  <user name="Маша Петрова">
+    <age>7</age>
+  </user>
+  <user name="Коля Иванов">
+    <age>6</age>
+  </user>
+  <user name="Сережа Никитин">
+    <age>7</age>
+  </user>
+  <user name="Костя Мартынин" />
+  <user name="Настя Калинина" />
+</users>

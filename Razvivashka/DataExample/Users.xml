@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<users>
+  <user name="Маша Петрова">
+    <Lesson id="1">
+      <Level id="1">23,03</Level>
+      <Level id="2">20,11</Level>
+    </Lesson>
+    <Lesson id="2">
+      <Level id="1">23,03</Level>
+      <Level id="2">20,11</Level>
+    </Lesson>
+  </user>
+  <user name="Коля Иванов">
+    <Lesson id="1">
+      <Level id="1">23,03</Level>
+      <Level id="2">20,11</Level>
+      <Level id="3">11,34</Level>
+    </Lesson>
+  </user>
+  <user name="Сережа Никитин" />
+  <user name="Имя Фамилия" />
+  <user name="Маруся Мыльникова" />
+  <user name="Валера Фёдоров" />
+</users>

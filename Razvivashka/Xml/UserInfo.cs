@@ -25,4 +25,16 @@ namespace Razvivashka.Xml
             _levelTime = LevelTime;
         }
     }
+
+
+    public class StatisticLesson
+    {
+        public int _lessonId;
+        public List<StatisticUser> _usersInfo;
+    }
+    public class StatisticUser
+    {
+        public string _name;
+        public TimeSpan _commonTime;
+    }
 }

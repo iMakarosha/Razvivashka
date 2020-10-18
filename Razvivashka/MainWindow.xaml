@@ -40,7 +40,7 @@
                                         <RowDefinition/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <RadioButton Grid.Row="0" Grid.Column="0" Content="Первый уровень" Style="{StaticResource rbStyle}"/>
+                                    <RadioButton Grid.Row="0" Grid.Column="0" Content="Первый уровень" Style="{StaticResource rbStyle}" />
                                     <RadioButton Grid.Row="1" Grid.Column="0" Content="Второй уровень" Style="{StaticResource rbStyle}"/>
                                     <RadioButton Grid.Row="2" Grid.Column="0" Content="Третий уровень" Style="{StaticResource rbStyle}"/>
                                     <WrapPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
@@ -49,7 +49,7 @@
 
                                 </Grid>
                             </Expander>
-                            <Expander Expanded="Expander_Expanded" Header="Поймать бабочку" x:Name="ExpLesson2" FontSize="16" Padding="5,5,5,0" Margin="0,0,0,5">
+                            <Expander Expanded="Expander_Expanded" Header="Помоги бабочке собрать нектар" x:Name="ExpLesson2" FontSize="16" Padding="5,5,5,0" Margin="0,0,0,5">
                                 <Grid x:Name="GrdLesson2">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
@@ -122,7 +122,29 @@
                     </TabItem.Header>
                     <TabItem.Content>
                         <StackPanel>
-                            <TextBlock>asdfasdf</TextBlock>
+                            <Grid x:Name="GrdStatistick">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.7*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="0.25*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Content="Урок 1: Мышка и сыр" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Label Grid.Row="1" Grid.Column="0" Content="Урок 2: Бабочка и цветы" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Label Grid.Row="2" Grid.Column="0" Content="Урок 3: Красная Шапочка" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Label Grid.Row="1" Grid.Column="1" Content="" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Label Grid.Row="2" Grid.Column="1" Content="" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+                                <Label Grid.Row="0" Grid.Column="2" Content="" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Label Grid.Row="1" Grid.Column="2" Content="" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <Label Grid.Row="2" Grid.Column="2" Content="" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            </Grid>
                         </StackPanel>
                     </TabItem.Content>
                 </TabItem>

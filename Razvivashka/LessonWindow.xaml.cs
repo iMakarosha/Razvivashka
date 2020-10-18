@@ -22,10 +22,10 @@ namespace Razvivashka
     /// <summary>
     /// Interaction logic for Lesson.xaml
     /// </summary>
-    public partial class Lesson : Window
+    public partial class LessonWindow : Window
     {
         public UserInfo _user;
-        public string _lesson;
+        public int _lesson;
         public int _level;
         string resourcesPath = XmlFunctions.path + "//Resourses";
 
@@ -38,89 +38,105 @@ namespace Razvivashka
 
         private int _counter;
 
-        private Cursor lessCursor;
-        private Style btnStyle;
-
-        public Lesson(UserInfo user, string lessonName, int level)
+        public LessonWindow(UserInfo user, string lessonName, int level)
         {
             InitializeComponent();
             _user = user;
-            _lesson = lessonName;
+            _lesson = Convert.ToInt32(lessonName.Substring(lessonName.Length - 1));
             _level = level;
 
-            lbLessonName.Content = "Урок \"" + _lesson + "\", уровень " + _level;
+            lbLessonName.Content = "Урок \"" + lessonName + "\", уровень " + _level;
 
             this.SizeChanged += OnWindowSizeChanged;
 
-            Button btnStart = new Button()
-            {
-                Content = "Начать занятие!",
-                Name = "btnStart",
-                Height = 40,
-                Width = 200
-            };
-            btnStart.Click += StartGame;
+            //Button btnStart = new Button()
+            //{
+            //    Content = "Начать занятие!",
+            //    Name = "btnStart",
+            //    Height = 40,
+            //    Width = 200
+            //};
+            //btnStart.Click += StartGame;
+
+            Button btnStart = CreateBtn("Начать занятие!", "btnStart", 40, 200, StartGame);
             cnvLesson.Children.Add(btnStart);
+
             Canvas.SetTop(btnStart, (this.Height - 120) / 2);
             Canvas.SetLeft(btnStart, (this.Width - 220) / 2);
-            lbTimer.Content = String.Format("{0:00}:{1:00}", _min, _sec);
+        }
+
+        public Button CreateBtn(string content, string name, int height = 20, int width = 120, RoutedEventHandler function = null)
+        {
+            Button btn = new Button()
+            {
+                Content = content,
+                Name = name,
+                Height = height,
+                Width = width
+            };
+            if (function != null)
+            {
+                btn.Click += function;
+            }
+            return btn;
         }
 
         //здесь добавить метод внесения в БД
         public void StartGame(object sender, RoutedEventArgs e)
         {
+            lbLessonName.Content = lbLessonName.Content.ToString().Replace("уровень "+(_level-1), "уровень " + (_level));
+
             Button btn = sender as Button;
             dckpLesson.Children.Remove(btn);
-
+            WindowClear();
             GetCnvSize();
-            _counter = 10 * _level;
+            //_counter = 10 * _level;
+            _counter = 1 * _level;
             timerStart();
             switch (_lesson)
             {
-                case "ExpLesson1":
+                case 1:
                     MessageBox.Show("Лабиринт с мышкой");
                     break;
-                case "ExpLesson2":
-                    //lessCursor= new Cursor(new System.IO.MemoryStream(Razvivashka.Properties.Resources.Butterfly_cursor));
-
-                    btnStyle = new Style(typeof(Button));
-                    btnStyle.Setters.Add(new Setter { Property = Control.BorderBrushProperty, Value = Brushes.Transparent });
-                    btnStyle.Setters.Add(new Setter { Property = Control.BackgroundProperty, Value = new ImageBrush(new BitmapImage(new Uri(resourcesPath + "//flower.png"))) });
-                    //btnStyle.Setters.Add(new Setter { Property = Control.CursorProperty, Value = lessCursor });
-                    btnStyle.Setters.Add(new EventSetter { Event = Button.ClickEvent, Handler = new RoutedEventHandler(CatchButterfly) });
-                    btnStyle.Setters.Add(new Setter { Property = Control.OpacityProperty, Value = 0.8 });
-
-                    Trigger tg = new Trigger()
-                    {
-                        Property = Button.IsMouseOverProperty,
-                        Value = true
-                    };
-                    tg.Setters.Add(new Setter { Property = Control.CursorProperty, Value = lessCursor });
-                    tg.Setters.Add(new Setter { Property = Control.FontFamilyProperty, Value = new FontFamily("Verdana") });
-                    tg.Setters.Add(new Setter { Property = Control.OpacityProperty, Value = 1.0 });
-                    btnStyle.Triggers.Add(tg);
-
+                case 2:
                     CatchButterfly(sender, e);
                     break;
-                case "ExpLesson3":
+                case 3:
                     MessageBox.Show("Помоги мышке добраться до сыра");
                     break;
             }
         }
 
+        public void NextLevel(object sender, RoutedEventArgs e)
+        {
+            _level++;
+            StartGame(sender, e);
+        }
+
         public void CatchButterfly(object sender, RoutedEventArgs e)
         {
+            cnvLesson.Children.Remove(sender as Button);
+
             if (_counter-- > 0)
             {
-                cnvLesson.Children.Remove(sender as Button);
                 AddButterfly();
             }
             else
             {
-                MessageBox.Show("END!");
                 timer.Stop();
-
+                WriteResultIntoXML();
+                MessageBox.Show("Ты прошел уровень! Твоё время: " + lbTimer.Content);
+                wpButtonsBottom.Children.Add(CreateBtn("Пройти еще раз", "btnAgain", function: StartGame));
+                if (_level < 3)
+                {
+                    wpButtonsBottom.Children.Add(CreateBtn("Далее", "btnNext", function: NextLevel));
+                }
             }
+        }
+
+        private void WriteResultIntoXML()
+        {
+            XmlFunctions.UpdateXmlResult(_user.Name, _lesson, _level, lbTimer.Content.ToString());
         }
 
         private void GetCnvSize()
@@ -129,13 +145,11 @@ namespace Razvivashka
             {
                 _windWidth = Convert.ToInt32(cnvLesson.ActualWidth);
                 _windHeight = Convert.ToInt32(cnvLesson.ActualHeight);
-
             }
             catch (Exception)
             {
                 _windWidth = 0;
                 _windHeight = 0;
-
             }
         }
 
@@ -146,43 +160,29 @@ namespace Razvivashka
 
         public void AddButterfly()
         {
-
-            //btnStyle.Setters.Add(new Setter { Property = Control.FontFamilyProperty, Value = new FontFamily("Verdana") });
-            //btnStyle.Setters.Add(new Setter { Property = Control.MarginProperty, Value = new Thickness(10) });
-
-            //Trigger trigger = new Trigger();
-            //trigger.Property = Button.IsMouseOverProperty;
-            //trigger.Value = true;
-            //trigger.Setters.Add(new Setter { Property = Control.BackgroundProperty, Value = Brushes.Red });
-
-            //btnStyle.Triggers.Add(trigger);
-
             Button btnBatefly = new Button()
             {
                 Name = "btnBatefly",
-                Content="sdfaas",
                 Width = 30 * (4 - _level),
                 Height = 40 * (4 - _level),
-                //Cursor = lessCursor,
-                //Background = new ImageBrush(new BitmapImage(new Uri(resourcesPath + "//flower.png")))
             };
-            //btnBatefly.Style = btnStyle;
             btnBatefly.Click += CatchButterfly;
-
-            //tg.Setters.Add(new Setter()
-            //{
-            //    Property = Button.MarginProperty,
-            //    Value = 30
-            //});
-
-            //btnBatefly.Style = btnStyle;
             btnBatefly.Style = (Style)this.TryFindResource("DefaultBtn");
-            //btnBatefly.Style = (Style)this.TryFindResource("sadfsa");
+
             cnvLesson.Children.Add(btnBatefly);
 
             Random rand = new Random();
             Canvas.SetLeft(btnBatefly, rand.Next(0, _windWidth - Convert.ToInt32(btnBatefly.Width)));
             Canvas.SetTop(btnBatefly, rand.Next(0, _windHeight - Convert.ToInt32(btnBatefly.Height)));
+        }
+
+        private void WindowClear()
+        {
+            _min = 0;
+            _sec = 0;
+            lbTimer.Content = String.Format("{0:00}:{1:00}", _min, _sec);
+
+            wpButtonsBottom.Children.Clear();
         }
 
         private void timerStart()

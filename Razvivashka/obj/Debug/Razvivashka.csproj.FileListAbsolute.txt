@@ -14,11 +14,12 @@ C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\obj\Debug\Razvivashka.e
 C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\obj\Debug\Razvivashka.pdb
 C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\obj\Debug\Login.g.cs
 C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\obj\Debug\Login.baml
-C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\obj\Debug\Lesson.g.cs
-C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\obj\Debug\Lesson.baml
 C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\obj\Debug\App.baml
 C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\obj\Debug\Lessons.baml
 C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\bin\Debug\Resourses\flower.png
 C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\obj\Debug\Razvivashka_Content.g.cs
 C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\bin\Debug\Resourses\Butterfly_cursor.ani
 C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\bin\Debug\Resourses\Red_butterfly.ani
+C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\obj\Debug\Razvivashka.csprojAssemblyReference.cache
+C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\obj\Debug\LessonWindow.g.cs
+C:\Users\IrinaUser1\source\repos\Razvivashka\Razvivashka\obj\Debug\LessonWindow.baml

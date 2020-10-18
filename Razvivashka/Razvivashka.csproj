@@ -56,8 +56,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Lesson.xaml.cs">
-      <DependentUpon>Lesson.xaml</DependentUpon>
+    <Compile Include="LessonWindow.xaml.cs">
+      <DependentUpon>LessonWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -66,7 +66,7 @@
     </Compile>
     <Compile Include="Xml\Functions.cs" />
     <Compile Include="Xml\UserInfo.cs" />
-    <Page Include="Lesson.xaml">
+    <Page Include="LessonWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

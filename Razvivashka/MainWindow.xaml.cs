@@ -31,43 +31,26 @@ namespace Razvivashka
             Login loginWindow = new Login();
             if (loginWindow.ShowDialog() == true)
             {
-                _userInfo = XmlFunctions.XmlReader(loginWindow.userName);
+                _userInfo = UpdateUserInfo(loginWindow.userName);
 
                 UserName.Content = "Привет, " + _userInfo.Name + "!";
-
-                if (!(_userInfo.Lessons == null))
-                {
-                    foreach(var lesson in _userInfo.Lessons)
-                    {
-                        var curGrid = spMain.FindName("GrdLesson" + lesson._lessonId) as Grid;
-                        int levelCounter = 0;
-
-                        foreach (var levelTime in lesson._levelTime)
-                        {
-                            Image imgChecked = new Image();
-                            imgChecked.Source = new BitmapImage(new Uri(resourcesPath + "//checked.png"));
-                            imgChecked.Height = 20;
-                            curGrid.Children.Add(imgChecked);
-                            Grid.SetColumn(imgChecked, 1);
-                            Grid.SetRow(imgChecked, levelCounter);
-
-                            Label lbTime = new Label();
-                            lbTime.Content = levelTime + " сек";
-                            lbTime.FontSize = 14;
-                            curGrid.Children.Add(lbTime);
-                            Grid.SetColumn(lbTime, 2);
-                            Grid.SetRow(lbTime, levelCounter++);
-                        }
-
-                        Expander expEl = spMain.FindName("ExpLesson" + lesson._lessonId) as Expander;
-                    }
-                }
-
             }
             else
             {
                 MessageBox.Show("Приложение закрывается!");
                 Application.Current.Shutdown();
+            }
+
+            List<StatisticLesson> statisticLessons = XmlFunctions.XmlReader(true);
+            foreach(StatisticLesson lesson in statisticLessons)
+            {
+                foreach (var userStatistick in lesson._usersInfo)
+                {
+                    FindVisualChildren<Label>(GrdStatistick, lesson._lessonId + 3).Content += userStatistick._name + "\r\n";
+                    FindVisualChildren<Label>(GrdStatistick, lesson._lessonId + 6).Content += userStatistick._commonTime.ToString().Substring(3) + " сек.\r\n";
+                    //lbLess2.Content += userStatistick._commonTime + "\r\n";
+
+                }
             }
         }
 
@@ -100,16 +83,12 @@ namespace Razvivashka
                     break;
                 }
             }
-            
-            Lesson lesson = new Lesson(_userInfo, expEl.Name, counter <= 3 ? (++counter) : 0);
-            lesson.Owner = this;
+
+            LessonWindow lessonWind = new LessonWindow(_userInfo, expEl.Name, counter <= 3 ? (++counter) : 0);
+            lessonWind.Owner = this;
             this.Hide();
-            lesson.ShowDialog();
-            //if (lesson.DialogResult == true)
-            //{
-            //    MessageBox.Show("2");
-            //}
-            //обновить грид с пройденными уровнями для текущего exp
+            lessonWind.ShowDialog();
+            _userInfo = UpdateUserInfo(_userInfo.Name);
             this.Show();
         }
 
@@ -130,6 +109,92 @@ namespace Razvivashka
                         yield return childOfChild;
                     }
                 }
+            }
+        }
+
+        public static T FindVisualChildren<T>(DependencyObject depObj, int index) where T : DependencyObject
+        {
+            int counter = 0;
+            foreach (var el in FindVisualChildren<T>(depObj))
+            {
+                if (counter++ == index)
+                {
+                    return el;
+                }
+            };
+            return null;
+        }
+
+        private UserInfo UpdateUserInfo(string userName)
+        {
+            _userInfo = XmlFunctions.XmlReader(userName);
+
+            for(int i = 1; i <= 3; i++)
+            {
+                Grid curGrid = spMain.FindName("GrdLesson" + i) as Grid;
+                int levelCounter = 0;
+                ClearGridCels(curGrid);
+
+                if (!(_userInfo.Lessons == null))
+                {
+                    foreach (Lesson lesson in _userInfo.Lessons)
+                    {
+                        if (lesson._lessonId == i)
+                        {
+                            foreach (var levelTime in lesson._levelTime)
+                            {
+                                Image imgChecked = new Image();
+                                imgChecked.Source = new BitmapImage(new Uri(resourcesPath + "//checked.png"));
+                                imgChecked.Height = 20;
+                                curGrid.Children.Add(imgChecked);
+                                Grid.SetColumn(imgChecked, 1);
+                                Grid.SetRow(imgChecked, levelCounter);
+
+                                Label lbTime = new Label();
+                                lbTime.Content = levelTime + " сек";
+                                lbTime.FontSize = 14;
+                                curGrid.Children.Add(lbTime);
+                                Grid.SetColumn(lbTime, 2);
+                                Grid.SetRow(lbTime, levelCounter++);
+
+                                curGrid.Children[levelCounter].IsEnabled = true;
+                            }
+
+                            Expander expEl = spMain.FindName("ExpLesson" + lesson._lessonId) as Expander;
+                        }
+                    }
+                }
+            }
+
+            return _userInfo;
+        }
+
+        private void ClearGridCels(Grid grid)
+        {
+            List<UIElement> gridRemovingChilds = new List<UIElement>();
+
+            foreach (UIElement control in grid.Children)
+            {
+                if (Grid.GetRow(control) < 3 && Grid.GetColumn(control) > 0)
+                {
+                    gridRemovingChilds.Add(control);
+                }
+                else if(Grid.GetColumn(control) == 0  && Grid.GetRow(control) != 3)
+                {
+                    RadioButton rb = (RadioButton)control;
+                    if (Grid.GetRow(control) != 0)
+                    {
+                        rb.IsEnabled = false;
+                    }
+                    else
+                    {
+                        rb.IsChecked = true;
+                    }
+                }
+            }
+            foreach (var element in gridRemovingChilds)
+            {
+                grid.Children.Remove(element);
             }
         }
     }

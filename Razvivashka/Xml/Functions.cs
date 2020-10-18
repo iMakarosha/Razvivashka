@@ -14,6 +14,12 @@ namespace Razvivashka.Xml
         //static string xmlPath = System.AppDomain.CurrentDomain.BaseDirectory + "/Data/Users.xml";
         public static string xmlPath = path+"//DataExample//Users.xml";
 
+        public class XmlLevels
+        {
+            public int LevelId;
+            public XmlNode LevelNode;
+        }
+
         #region Reader
         public static List<string> XmlReader()
         {
@@ -52,13 +58,13 @@ namespace Razvivashka.Xml
                             List<Lesson> lessons = new List<Lesson>();
                             foreach (XmlNode childnode in xnode.ChildNodes)
                             {
-                                if (childnode.Name == "Lesson")
+                                if (childnode.Name == "lesson")
                                 {
                                     Lesson lesson = new Lesson();
 
                                     if (childnode.Attributes.Count > 0)
                                     {
-                                        XmlNode levelId = childnode.Attributes.GetNamedItem("id");
+                                        XmlNode levelId = childnode.Attributes.GetNamedItem("name");
                                         if (levelId != null)
                                             lesson._lessonId = Convert.ToInt32(levelId.Value) ;
                                     }
@@ -66,7 +72,7 @@ namespace Razvivashka.Xml
                                     List<string> levels = new List<string>();
                                     foreach (XmlNode levelInfo in childnode.ChildNodes)
                                     {
-                                        if(levelInfo.Name == "Level")
+                                        if(levelInfo.Name == "level")
                                         {
                                             levels.Add(levelInfo.InnerText.ToString());
                                         }
@@ -87,32 +93,87 @@ namespace Razvivashka.Xml
             return null;
         }
 
-        public static List<UserInfo> XmlReader(bool forStatistic)
+        public static XmlNode XmlReader(string userName, XmlElement xRoot)
+        {
+            foreach (XmlNode xnode in xRoot)
+            {
+                if (xnode.Attributes.Count > 0)
+                {
+                    XmlNode attr = xnode.Attributes.GetNamedItem("name");
+                    if (attr != null && attr.Value == userName)
+                    {
+                        return xnode;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public static List<StatisticLesson> XmlReader(bool forStatistic)
         {
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(xmlPath); 
             XmlElement xRoot = xmlDoc.DocumentElement;
-            List<UserInfo> users = new List<UserInfo>();
+
+            List<StatisticLesson> lessons = new List<StatisticLesson>();
+            for(int i = 1; i <= 3; i++)
+            {
+                StatisticLesson lesson = new StatisticLesson()
+                {
+                    _lessonId = i,
+                    _usersInfo = new List<StatisticUser>()
+                };
+                lessons.Add(lesson);
+            }
             foreach (XmlNode xnode in xRoot)
             {
-                UserInfo info = new UserInfo();
+                string userName = "";
                 if (xnode.Attributes.Count > 0)
                 {
                     XmlNode attr = xnode.Attributes.GetNamedItem("name");
                     if (attr != null)
-                        info.Name = attr.Value;
+                        userName = attr.Value;
                 }
 
-                //foreach (XmlNode childnode in xnode.ChildNodes)
-                //{
-                //    if (childnode.Name == "age")
-                //    {
-                //        info.Age = Convert.ToInt32(childnode.InnerText);
-                //    }
-                //    //...
-                //}
+                foreach (XmlNode childnode in xnode.ChildNodes)
+                {
+                    if (childnode.Name == "lesson")
+                    {
+                        StatisticUser statisticUser = new StatisticUser();
+                        statisticUser._name = userName;
+
+                        TimeSpan timeSpan = new TimeSpan();
+                        foreach (XmlNode levelInfo in childnode.ChildNodes)
+                        {
+                            if (levelInfo.Name == "level")
+                            {
+                                timeSpan = timeSpan.Add(new TimeSpan(0, Convert.ToInt32(levelInfo.InnerText.ToString().Split(':')[0]), Convert.ToInt32(levelInfo.InnerText.ToString().Split(':')[1])));
+                            }
+                        }
+
+                        if (childnode.Attributes.Count > 0)
+                        {
+                            XmlNode levelId = childnode.Attributes.GetNamedItem("name");
+                            if (levelId != null)
+                                lessons[Convert.ToInt32(levelId.Value)-1]._usersInfo.Add(new StatisticUser()
+                                {
+                                    _name = userName,
+                                    _commonTime = timeSpan
+                                });
+                        }
+                    }
+                }
             }
-            return users;
+
+            foreach(StatisticLesson lesson in lessons)
+            {
+                lesson._usersInfo.Sort(delegate (StatisticUser first, StatisticUser second)
+                {
+                    if (first._commonTime > second._commonTime) return 1;
+                    else return -1;
+                });
+            }
+            return lessons;
         }
         #endregion
 
@@ -132,6 +193,96 @@ namespace Razvivashka.Xml
             xmlDoc.Save(xmlPath);
         }
 
+        public static void UpdateXmlResult(string userName, int lessonId, int level, string time)
+        {
+
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(xmlPath);
+            XmlElement xRoot = xmlDoc.DocumentElement;
+            XmlNode currentUser = xRoot.RemoveChild(XmlReader(userName, xRoot));
+
+            if (currentUser.ChildNodes.Count > 0){
+                bool levelChanged = false;
+                foreach(XmlNode lessonNode in currentUser.ChildNodes)
+                {
+                    if (lessonNode.Attributes.GetNamedItem("name").Value == lessonId.ToString())
+                    {
+                        //проще сортировать при добавлении, а следующие за непройденным чекбоксы блочить
+                        List<XmlLevels> levels = new List<XmlLevels>();
+                        foreach (XmlNode levelNode in lessonNode.ChildNodes)
+                        {
+                            if (levelNode.Attributes.GetNamedItem("name").Value != level.ToString()){
+                                levels.Add(new XmlLevels
+                                {
+                                    LevelId = Convert.ToInt32(levelNode.Attributes.GetNamedItem("name").Value),
+                                    LevelNode = levelNode
+                                });
+                            }
+                        }
+                        lessonNode.RemoveAll();
+
+                        XmlLevels current = new XmlLevels
+                        {
+                            LevelId = level,
+                            LevelNode = CreateLevelNode(xmlDoc, level.ToString(), time)
+                        };
+                        levels.Add(current);
+
+                        levels.Sort(delegate(XmlLevels first, XmlLevels second)
+                        {
+                            if (first.LevelId > second.LevelId) return 1;
+                            else return -1;
+                        });
+
+                        XmlAttribute lessAttr = xmlDoc.CreateAttribute("name");
+                        lessAttr.AppendChild(xmlDoc.CreateTextNode(lessonId.ToString()));
+                        lessonNode.Attributes.Append(lessAttr);
+
+                        foreach (XmlLevels curLevel in levels)
+                        {
+                            lessonNode.AppendChild(curLevel.LevelNode);
+                        }
+
+                        levelChanged = true;
+                    }
+                }
+                if (!levelChanged)
+                {
+                    currentUser.AppendChild(CreateLessonNode(xmlDoc, lessonId.ToString(), level.ToString(), time));
+                }
+            }
+            else{
+                currentUser.AppendChild(CreateLessonNode(xmlDoc, lessonId.ToString(), level.ToString(), time));
+            }
+
+            xRoot.AppendChild(currentUser);
+            xmlDoc.Save(xmlPath);
+        }
+
+        public static XmlNode CreateLessonNode(XmlDocument xmlDoc, string lessonId, string levelId, string time)
+        {
+            XmlElement lesson = xmlDoc.CreateElement("lesson");
+            XmlAttribute lessAttr = xmlDoc.CreateAttribute("name");
+            lessAttr.AppendChild(xmlDoc.CreateTextNode(lessonId));
+            lesson.Attributes.Append(lessAttr);
+
+            lesson.AppendChild(CreateLevelNode(xmlDoc, levelId, time));
+
+            return lesson;
+        }
+
+        public static XmlNode CreateLevelNode(XmlDocument xmlDoc, string levelId, string time)
+        {
+
+            XmlElement level = xmlDoc.CreateElement("level");
+            XmlAttribute levAttr = xmlDoc.CreateAttribute("name");
+
+            levAttr.AppendChild(xmlDoc.CreateTextNode(levelId));
+            level.Attributes.Append(levAttr);
+            level.InnerXml = time;
+
+            return level;
+        }
 
         #endregion
     }

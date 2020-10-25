@@ -6,36 +6,87 @@
         <Setter Property="Control.Margin" Value="10,4"/>
         <Setter Property="Control.VerticalContentAlignment" Value="Center"/>
     </Style>
-    <!--Style TargetType="Button" x:Key="btnLess1">
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        <Style.Triggers>
-            <Trigger Property="Button.IsMouseOver" Value="True">
-                <Setter Property="Background" Value="Red"/>
-            </Trigger>
-        </Style.Triggers>
-    </-->
 
-    <Style TargetType="Button" x:Key="sadfsa">
+    <Style TargetType="DockPanel" x:Key="lessonBack1">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="/Razvivashka;component/Resourses/back2.jpg"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="DockPanel" x:Key="lessonBack2">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="/Razvivashka;component/Resourses/back1.jpg"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="DockPanel" x:Key="lessonLabelBack1">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="/Razvivashka;component/Resourses/blow.jpg" TileMode="Tile" ViewportUnits="Absolute" Viewport="0,0,300,200" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="lessonBtn">
         <Style.Setters>
-            <Setter Property="Button.Background" Value="Black" />
-            <Setter Property="Button.Foreground" Value="White" />
-            <Setter Property="Button.FontFamily" Value="Verdana" />
-            <Setter Property="Button.Margin" Value="10" />
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="FontFamily" Value="Vergana"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="3" Background="DodgerBlue" BorderBrush="Transparent" BorderThickness="2" >
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style.Setters>
         <Style.Triggers>
+           
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value=".6" />
+            </Trigger>
+            
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="Foreground" Value="Red" />
-                <Setter Property="Background" Value="{StaticResource Button.MouseOver.Background}"/>
+                <Setter Property="Foreground" Value="DodgerBlue"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="20"
+                              Direction="0"
+                              Color="DodgerBlue"
+                              RenderingBias="Quality"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="3" Background="White" BorderBrush="DodgerBlue" BorderThickness="2" >
+                                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
             </Trigger>
         </Style.Triggers>
+
     </Style>
     
     <SolidColorBrush x:Key="Button.MouseOver.Background" Color="Green"/>
 
-
     <!--#region Default Colors-->
-    <Color x:Key="MouseOver.Background.Color">#FFF2F2F2</Color>
+    <Color x:Key="MouseOver.Background.Color">#FF8775B8</Color>
     <Color x:Key="MouseOver.Border.Color">#FFA8B0C2</Color>
     <Color x:Key="MouseOver.ForegroundHoverColor">#FF696C74</Color>
 
@@ -55,7 +106,7 @@
     <SolidColorBrush x:Key="Static.Border.Brush" Color="{StaticResource Static.Border.Color}" />
     <SolidColorBrush x:Key="Static.Foreground.Brush" Color="{StaticResource Static.Foreground.Color}" />
 
-    <SolidColorBrush x:Key="MouseOver.Background.Brush" Color="{StaticResource MouseOver.Background.Color}" />
+    <SolidColorBrush x:Key="MouseOver.Background.Brush" Color="#FF8775B8" />
     <SolidColorBrush x:Key="MouseOver.Border.Brush" Color="{StaticResource MouseOver.Border.Color}" />
     <SolidColorBrush x:Key="MouseOver.Foreground.Brush" Color="{StaticResource MouseOver.ForegroundHoverColor}" />
 
@@ -63,8 +114,13 @@
     <SolidColorBrush x:Key="Pressed.Border.Brush" Color="{StaticResource Pressed.Border.Color}" />
     <SolidColorBrush x:Key="Pressed.Foreground.Brush" Color="{StaticResource Pressed.Foreground.Color}" />
 
-    <ImageBrush x:Key="Static.Background.ImageBrush" ImageSource="/Razvivashka;component/Resourses/flower.png" />
+    <ImageBrush x:Key="Static.Background.ImageBrush" ImageSource="/Razvivashka;component/Resourses/flower2.png" />
+    <ImageBrush x:Key="Static.Background.UpArrow" ImageSource="/Razvivashka;component/Resourses/up.png" />
+    <ImageBrush x:Key="Static.Background.HomeArrow" ImageSource="/Razvivashka;component/Resourses/home.png" />
+    
     <Cursor x:Key="Static.Cursor">Resourses/Red_butterfly.ani</Cursor>
+
+    <Cursor x:Key="Static.Cursor2">Resourses/Monkey_move.ani</Cursor>
 
     <!--#endregion-->
 
@@ -84,6 +140,7 @@
         </Setter>
     </Style>
     <!--#endregion-->
+    
     <!--#region DefaultBtn-->
     <Style x:Key="DefaultBtn" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -91,7 +148,14 @@
         <Setter Property="Background" Value="{DynamicResource Static.Background.ImageBrush}" />
         <Setter Property="Foreground" Value="{DynamicResource Static.Foreground.Brush}" />
         <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="Opacity" Value="1.0" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="40"
+                              Direction="-100"
+                              Color="#999"
+                              RenderingBias="Quality"/>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -133,32 +197,52 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value=".6" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Cursor" Value="{DynamicResource Static.Cursor}" />
-                <Setter Property="Opacity" Value="0.8" />
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="30"
+                              Direction="-100"
+                              Color="#48370d"
+                              RenderingBias="Quality"/>
+                    </Setter.Value>
+                </Setter>
             </Trigger>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation To="1.05" Duration="0:0:0.75" AutoReverse="True"
+                RepeatBehavior="Forever" Storyboard.TargetProperty="RenderTransform.ScaleX"/>
+                        <DoubleAnimation To="1.05" Duration="0:0:0.75" AutoReverse="True"
+                RepeatBehavior="Forever" Storyboard.TargetProperty="RenderTransform.ScaleY"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
         </Style.Triggers>
     </Style>
-    <!--Style x:Key="DefaultBtn" TargetType="{x:Type Button}">
+
+    <Style x:Key="upBtn" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="FocusVisualStyle" Value="{DynamicResource BtnFocusVisual}" />
-        <Setter Property="Padding" Value="12,11,12,10" />
-        <Setter Property="MinWidth" Value="100" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
-        <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
-        <Setter Property="FontSize" Value="12" />
-        <Setter Property="FontFamily" Value="Helvetica Arial sans-serif" />
-        <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="Background" Value="{DynamicResource Static.Background.Brush}" />
+        <Setter Property="Background" Value="{DynamicResource Static.Background.UpArrow}" />
         <Setter Property="Foreground" Value="{DynamicResource Static.Foreground.Brush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Static.Border.Brush}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="LayoutTransform">
+            <Setter.Value>
+                <RotateTransform Angle="-30"/>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -182,41 +266,160 @@
                                         Storyboard.TargetName="Border"
                                         Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                         To="{DynamicResource MouseOver.Background.Color}" />
-                                        <ColorAnimation
-                                        Storyboard.TargetName="Border"
-                                        Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)"
-                                        To="{DynamicResource MouseOver.Border.Color}" />
                                     </Storyboard>
                                 </VisualState>
-                                <VisualState Name="Pressed">
+
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="00:00:01" To="Normal" />
+                                    <VisualTransition GeneratedDuration="00:00:01" To="MouseOver">
+                                        <VisualTransition.GeneratedEasingFunction>
+                                            <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                        </VisualTransition.GeneratedEasingFunction>
+                                    </VisualTransition>
+
+                                </VisualStateGroup.Transitions>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value=".6" />
+            </Trigger>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation To="1.1" Duration="0:0:0.5" AutoReverse="True"
+                RepeatBehavior="Forever" Storyboard.TargetProperty="RenderTransform.ScaleX"/>
+                        <DoubleAnimation To="1.1" Duration="0:0:0.5" AutoReverse="True"
+                RepeatBehavior="Forever" Storyboard.TargetProperty="RenderTransform.ScaleY"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="homeBtn" TargetType="{x:Type Button}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource BtnFocusVisual}" />
+        <Setter Property="Background" Value="{DynamicResource Static.Background.HomeArrow}" />
+        <Setter Property="Foreground" Value="{DynamicResource Static.Foreground.Brush}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Height" Value="70"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                    x:Name="Border"
+                    Padding="{TemplateBinding Padding}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness=".9"
+                    CornerRadius="2">
+                        <ContentPresenter
+                        x:Name="PART_Button"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="Common">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="MouseOver">
                                     <Storyboard>
                                         <ColorAnimation
                                         Storyboard.TargetName="Border"
                                         Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                        To="{DynamicResource Pressed.Background.Color}" />
-                                        <ColorAnimation
-                                        Storyboard.TargetName="Border"
-                                        Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)"
-                                        To="{DynamicResource Pressed.Border.Color}" />
+                                        To="{DynamicResource MouseOver.Background.Color}" />
                                     </Storyboard>
                                 </VisualState>
+
                                 <VisualStateGroup.Transitions>
-                                    <VisualTransition GeneratedDuration="00:00:00.2" To="Normal" />
-                                    <VisualTransition GeneratedDuration="00:00:00.2" To="MouseOver">
+                                    <VisualTransition GeneratedDuration="00:00:01" To="Normal" />
+                                    <VisualTransition GeneratedDuration="00:00:01" To="MouseOver">
                                         <VisualTransition.GeneratedEasingFunction>
                                             <ExponentialEase EasingMode="EaseOut" Exponent="10" />
                                         </VisualTransition.GeneratedEasingFunction>
                                     </VisualTransition>
-                                    <VisualTransition GeneratedDuration="00:00:00.2" To="Pressed">
+
+                                </VisualStateGroup.Transitions>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value=".6" />
+            </Trigger>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation To="1.1" Duration="0:0:0.5" AutoReverse="True"
+                RepeatBehavior="Forever" Storyboard.TargetProperty="RenderTransform.ScaleX"/>
+                        <DoubleAnimation To="1.1" Duration="0:0:0.5" AutoReverse="True"
+                RepeatBehavior="Forever" Storyboard.TargetProperty="RenderTransform.ScaleY"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="commonBtn" TargetType="{x:Type Button}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource BtnFocusVisual}" />
+        <Setter Property="Background" Value="#FF5199E4" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Padding" Value="10,6"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                    x:Name="Border"
+                    Padding="{TemplateBinding Padding}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness=".9"
+                    CornerRadius="2">
+                        <ContentPresenter
+                        x:Name="PART_Button"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="Common">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                        To="{DynamicResource MouseOver.Background.Color}" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="00:00:01" To="Normal" />
+                                    <VisualTransition GeneratedDuration="00:00:01" To="MouseOver">
                                         <VisualTransition.GeneratedEasingFunction>
                                             <ExponentialEase EasingMode="EaseOut" Exponent="10" />
                                         </VisualTransition.GeneratedEasingFunction>
                                     </VisualTransition>
-                                    <VisualTransition GeneratedDuration="00:00:00.2" To="Focused">
-                                        <VisualTransition.GeneratedEasingFunction>
-                                            <ExponentialEase EasingMode="EaseOut" Exponent="10" />
-                                        </VisualTransition.GeneratedEasingFunction>
-                                    </VisualTransition>
+
                                 </VisualStateGroup.Transitions>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
@@ -225,13 +428,89 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Opacity" Value=".6" />
-            </Trigger>
+            <EventTrigger RoutedEvent="Button.MouseEnter">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#FF8775B8" Duration="0:0:0.5"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="gamesBtn" TargetType="{x:Type Button}">
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource BtnFocusVisual}" />
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                    x:Name="Border"
+                    Padding="{TemplateBinding Padding}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness=".9"
+                    CornerRadius="16">
+                        <ContentPresenter
+                        x:Name="PART_Button"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="Common">
+                                <VisualState Name="Normal" />
+                                <VisualState Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                        To="DarkRed" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="00:00:01" To="Normal" />
+                                    <VisualTransition GeneratedDuration="00:00:01" To="MouseOver">
+                                        <VisualTransition.GeneratedEasingFunction>
+                                            <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                        </VisualTransition.GeneratedEasingFunction>
+                                    </VisualTransition>
+
+                                </VisualStateGroup.Transitions>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Button.MouseEnter">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetProperty="Background.Color" To="DarkRed" Duration="0:0:0.5"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DefaultPath" TargetType="Path">
+        <Setter Property="Stroke" Value="BurlyWood"/>
+        <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Cursor" Value="{DynamicResource Static.Cursor2}" />
             </Trigger>
         </Style.Triggers>
-    </Style-->
-    <!--#endregion-->
+    </Style>
 </ResourceDictionary>

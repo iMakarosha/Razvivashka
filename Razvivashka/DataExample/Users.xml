@@ -1,50 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <users>
   <user name="Коля Иванов">
-    <lesson name="1">
-      <level name="1">23:03</level>
-      <level name="2">20:11</level>
-      <level name="3">11:34</level>
-    </lesson>
   </user>
   <user name="Сережа Никитин">
-    <lesson name="1">
-      <level name="1">00:06</level>
-    </lesson>
     <lesson name="2">
-      <level name="3">00:23</level>
-      <level name="1">00:09</level>
-    </lesson>
-  </user>
-  <user name="Маруся Мыльникова">
-    <lesson name="2">
-      <level name="1">00:00</level>
-      <level name="2">00:04</level>
-      <level name="3">00:07</level>
+      <level name="1">00:08</level>
     </lesson>
   </user>
   <user name="Валера Фёдоров">
     <lesson name="2">
-      <level name="1">00:02</level>
-      <level name="2">00:01</level>
+      <level name="1">00:06</level>
+      <level name="2">00:12</level>
+      <level name="3">00:24</level>
+    </lesson>
+    <lesson name="1">
+      <level name="1">00:04</level>
+      <level name="2">00:35</level>
+    </lesson>
+  </user>
+  <user name="Маруся Мыльникова">
+    <lesson name="2">
+      <level name="1">00:32</level>
+      <level name="2">00:13</level>
+      <level name="3">00:38</level>
+    </lesson>
+    <lesson name="1">
+      <level name="1">01:23</level>
+      <level name="2">00:04</level>
+      <level name="3">01:37</level>
     </lesson>
   </user>
   <user name="Маша Петрова">
     <lesson name="1">
-      <level name="1">23:03</level>
-      <level name="2">20:11</level>
+      <level name="1">00:05</level>
+      <level name="2">00:12</level>
     </lesson>
     <lesson name="2">
-      <level name="1">00:00</level>
-      <level name="2">00:01</level>
+      <level name="1">00:06</level>
+      <level name="2">00:19</level>
       <level name="3">00:02</level>
-    </lesson>
-  </user>
-  <user name="Имя Фамилия">
-    <lesson name="2">
-      <level name="1">00:00</level>
-      <level name="2">00:01</level>
-      <level name="3">00:04</level>
     </lesson>
   </user>
 </users>

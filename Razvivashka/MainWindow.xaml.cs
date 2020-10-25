@@ -37,7 +37,6 @@ namespace Razvivashka
             }
             else
             {
-                MessageBox.Show("Приложение закрывается!");
                 Application.Current.Shutdown();
             }
 
@@ -46,18 +45,20 @@ namespace Razvivashka
             {
                 foreach (var userStatistick in lesson._usersInfo)
                 {
-                    FindVisualChildren<Label>(GrdStatistick, lesson._lessonId + 3).Content += userStatistick._name + "\r\n";
-                    FindVisualChildren<Label>(GrdStatistick, lesson._lessonId + 6).Content += userStatistick._commonTime.ToString().Substring(3) + " сек.\r\n";
+                    XmlFunctions.FindVisualChildren<Label>(GrdStatistick, lesson._lessonId - 1).Content += userStatistick._name + "\r\n";
+                    XmlFunctions.FindVisualChildren<Label>(GrdStatistick, lesson._lessonId + 2).Content += userStatistick._commonTime.ToString().Substring(3) + " сек.\r\n";
                     //lbLess2.Content += userStatistick._commonTime + "\r\n";
 
                 }
             }
+
+            tbctrlLessons.Height = this.Height - 140;
         }
 
         private void Expander_Expanded(object sender, RoutedEventArgs e)
         {
             Expander curExpander = sender as Expander;
-            foreach(var expander in FindVisualChildren<Expander>(spMain))
+            foreach(var expander in XmlFunctions.FindVisualChildren<Expander>(spMain))
             {
                 if (expander.Header != curExpander.Header)
                 {
@@ -72,7 +73,7 @@ namespace Razvivashka
             Button curButton = sender as Button;
             Expander expEl = spMain.FindName("Exp" + curButton.Name.Substring(3)) as Expander;
             int counter = 0;
-            foreach(RadioButton radioButton in FindVisualChildren<RadioButton>(expEl))
+            foreach(RadioButton radioButton in XmlFunctions.FindVisualChildren<RadioButton>(expEl))
             {
                 if (radioButton.IsChecked != true)
                 {
@@ -90,39 +91,6 @@ namespace Razvivashka
             lessonWind.ShowDialog();
             _userInfo = UpdateUserInfo(_userInfo.Name);
             this.Show();
-        }
-
-        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
-        {
-            if (depObj != null)
-            {
-                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-                {
-                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
-                    if (child != null && child is T)
-                    {
-                        yield return (T)child;
-                    }
-
-                    foreach (T childOfChild in FindVisualChildren<T>(child))
-                    {
-                        yield return childOfChild;
-                    }
-                }
-            }
-        }
-
-        public static T FindVisualChildren<T>(DependencyObject depObj, int index) where T : DependencyObject
-        {
-            int counter = 0;
-            foreach (var el in FindVisualChildren<T>(depObj))
-            {
-                if (counter++ == index)
-                {
-                    return el;
-                }
-            };
-            return null;
         }
 
         private UserInfo UpdateUserInfo(string userName)
@@ -196,6 +164,16 @@ namespace Razvivashka
             {
                 grid.Children.Remove(element);
             }
+        }
+
+        private void ShowMessageBox(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("К сожалению, здесь нет ничего! Зато есть 2 рабочих урока: 'Обезьянка на прогулке' и 'Цветочная поляна'.");
+        }
+
+        private void UpdateGamesGrid(object sender, SizeChangedEventArgs e)
+        {
+            tbctrlLessons.Height = this.ActualHeight - 120;
         }
     }
 }

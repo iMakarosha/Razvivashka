@@ -5,12 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Razvivashka"
         mc:Ignorable="d"
-        Title="Lesson" Height="460" Width="620">
+        Title="Lesson" Height="620" Width="840" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterScreen">
     <DockPanel x:Name="dckpLesson">
-        <Label x:Name="lbLessonName" DockPanel.Dock="Top" Content="" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <DockPanel DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" Margin="10,6">
-            <Label x:Name="lbTimer" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="20,0,0,0"></Label>
-            <WrapPanel x:Name="wpButtonsBottom" DockPanel.Dock="Right" ItemHeight="20" ItemWidth="125" Orientation="Horizontal" HorizontalAlignment="Right">
+        <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Stretch" Style="{StaticResource lessonLabelBack1}">
+            <!--DockPanel.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#FFAEE9F4" Offset="0"/>
+                    <GradientStop Color="White" Offset=".3"/>
+                    <GradientStop Color="White" Offset=".6"/>
+                    <GradientStop Color="#FF71DCF2" Offset="1"/>
+                </LinearGradientBrush>
+            </-->
+            <Label x:Name="lbLessonName" DockPanel.Dock="Top" Padding="0,6,0,0" Content="" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="16"/>
+            <TextBlock x:Name="tbLessonDescr" DockPanel.Dock="Top" TextWrapping="Wrap" Text="Наведи курсор на большой белый цветок и кликни по нему мышкой, чтоб помочь бабочке собрать нектар" TextAlignment="Center" Padding="10,0,10,6" LineHeight="1" VerticalAlignment="Top" FontSize="13"/>
+            <Border BorderBrush="Black" BorderThickness="0,0,0,1"/>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" Height="40">
+            <DockPanel.Background>
+                <SolidColorBrush Color="#7FFFFFFF"/>
+            </DockPanel.Background>
+            <Label x:Name="lbTimer" DockPanel.Dock="Left" VerticalAlignment="Center" Margin="20,0,0,0" FontWeight="DemiBold"></Label>
+            <WrapPanel x:Name="wpButtonsBottom" DockPanel.Dock="Right" ItemHeight="40" ItemWidth="160" Orientation="Horizontal" HorizontalAlignment="Right">
+
             </WrapPanel>
         </DockPanel>
         <Canvas x:Name="cnvLesson" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Windows.Media;
 
 namespace Razvivashka.Xml
 {
     public static class XmlFunctions
     {
         //static string xmlPath = System.AppDomain.CurrentDomain.BaseDirectory + "/Data/Users.xml";
-        public static string path = "C://Users//IrinaUser1//source//repos//Razvivashka//Razvivashka";
+        public static string path = "E://Учеба//Человеко-машинный интерфейс//Razvivashka//Razvivashka";
         //static string xmlPath = System.AppDomain.CurrentDomain.BaseDirectory + "/Data/Users.xml";
         public static string xmlPath = path+"//DataExample//Users.xml";
 
@@ -285,5 +287,41 @@ namespace Razvivashka.Xml
         }
 
         #endregion
+
+
+
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
+
+        public static T FindVisualChildren<T>(DependencyObject depObj, int index) where T : DependencyObject
+        {
+            int counter = 0;
+            foreach (var el in FindVisualChildren<T>(depObj))
+            {
+                if (counter++ == index)
+                {
+                    return el;
+                }
+            };
+            return null;
+        }
+
     }
 }

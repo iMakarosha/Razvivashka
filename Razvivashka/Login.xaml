@@ -5,12 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Razvivashka"
         mc:Ignorable="d"
-        Title="Login" Height="250" Width="560" MinHeight="240" MinWidth="500" MaxHeight="380" MaxWidth="660" FontSize="16">
+        Title="Login" Height="400" Width="600" MinHeight="360" MinWidth="520" MaxHeight="500" MaxWidth="800" FontSize="16" WindowStartupLocation="CenterScreen">
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard TargetName="lbWelcome">
+                        <ColorAnimation Storyboard.TargetProperty="Background.Color" To="Transparent" AutoReverse="True" Duration="0:0:2" RepeatBehavior="Forever" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Window.Triggers>
+
     <DockPanel x:Name="LoginPanel">
-        <Label DockPanel.Dock="Top" Content="Добро пожаловать в программу &quot;Развивашка&quot;"  HorizontalAlignment="Center" FontSize="20" Margin="0,40,0,10" FontWeight="Bold" />
-        <Label DockPanel.Dock="Top" Content="Выбери своё имя из списка" HorizontalAlignment="Center" Padding="10"/>
-        <ComboBox DockPanel.Dock="Top"  Width="300" HorizontalAlignment="Center"  Padding="10" x:Name="cbUsers" SelectionChanged="CbUsers_SelectionChanged"/>
-        <Grid Name="regPanel" DockPanel.Dock="Bottom" Width="400" Height="80" HorizontalAlignment="Center"  Visibility="Hidden">
+        <DockPanel.Background>
+            <ImageBrush ImageSource="/Razvivashka;component/Resourses/b3.jpg" Opacity="0.8" TileMode="FlipXY" Stretch="UniformToFill"/>
+        </DockPanel.Background>
+        <Label DockPanel.Dock="Top" x:Name="lbWelcome" Content="Добро пожаловать в программу &quot;Развивашка&quot;"  HorizontalAlignment="Center" FontSize="20" Margin="0,40,0,10" Padding="22,5" FontWeight="Bold">
+            <Label.Background>
+                <SolidColorBrush Color="White"/>
+            </Label.Background>
+            <Label.Foreground>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="Yellow" Offset="0.0" />
+                    <GradientStop Color="Red" Offset="0.25" />
+                    <GradientStop Color="Blue" Offset="0.75" />
+                    <GradientStop Color="LimeGreen" Offset="1.0" />
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+        <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" FontSize="13" Margin="0,0,0,10" Padding="10" TextWrapping="Wrap" TextAlignment="Center">
+            <TextBlock.Background>
+                <SolidColorBrush Color="#FFFFFF" Opacity="0.7"/>
+            </TextBlock.Background>
+
+            <Run>Развивашка - это обучающий тренажёр для детей дошкольного возраста, предназначенный для разработки навыков управления мышкой и клавиатурой в игровом формате.</Run>
+            <Run>Программа рекомендована для детей старше 4 лет.</Run>
+            <LineBreak/>
+            <Run>Не рекомендуется использовать более 10 минут в день.</Run>
+        </TextBlock>
+        <Label DockPanel.Dock="Top" x:Name="asfsdfa" Content="Выбери своё имя из списка" HorizontalAlignment="Center" Padding="10">
+        </Label>
+        <ComboBox DockPanel.Dock="Top"  Width="300" HorizontalAlignment="Center"  Padding="10" x:Name="cbUsers" SelectionChanged="CbUsers_SelectionChanged" Cursor="Hand"/>
+        <Grid Name="regPanel" DockPanel.Dock="Bottom" Width="400" Height="80" HorizontalAlignment="Center" Visibility="Hidden" >
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -20,9 +59,10 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Content="Введи свои имя и фамилию" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center"/>
+            <Label Content="Введи свои имя и фамилию" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+            </Label>
             <TextBox x:Name="tbUserName" Text="Имя Фамилия" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Padding="8"/>
-            <Button x:Name="btnLogin" Content="Войти" Grid.Row="1" Grid.Column="2" Click="BtnLogin_Click"/>
+            <Button x:Name="btnLogin" Content="ВОЙТИ" Grid.Row="1" Grid.Column="2" Click="BtnLogin_Click" Style="{StaticResource commonBtn}" HorizontalContentAlignment="Center"/>
         </Grid>
     </DockPanel>
 </Window>
